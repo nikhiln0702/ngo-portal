@@ -3,10 +3,26 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+const SuccessModal = ({ message, onClose }) => (
+  <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+    <div className="bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm mx-auto text-center">
+      <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
+      <p className="text-gray-300 mb-6">{message}</p>
+      <button
+        onClick={onClose}
+        className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+);
+
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'intern' });
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,18 +30,29 @@ export default function Register() {
       await axios.post(`${BASE_URL}/register`, form);
       toast.success('Registration successful!');
       setForm({ name: '', email: '', phone: '', role: '' }); // Reset form
+      setShowModal(true);
     } catch (error) {
       toast.error('Registration failed. Please try again.');
       console.error(error);
     }
   };
-
+  const handleModalClose = () => {
+      setShowModal(false);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm(prevForm => ({ ...prevForm, [name]: value }));
   };
 
   return (
+    <>
+    {/* Conditionally render the modal on top of the page */}
+    {showModal && (
+      <SuccessModal 
+        message="Thank you for registering! We'll reach out to you through email shortly."
+        onClose={handleModalClose}
+      />
+    )}
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-center text-white">Register</h2>
@@ -110,5 +137,6 @@ export default function Register() {
         </form>
       </div>
     </div>
+    </>
   );
 }
