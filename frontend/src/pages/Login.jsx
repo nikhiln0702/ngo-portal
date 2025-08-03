@@ -45,6 +45,7 @@ export default function Login() {
               type="email"
               name="email"
               id="email"
+              placeholder='admin@ngo.com'
               value={form.email}
               onChange={handleInputChange}
               className="w-full px-3 py-2 text-white bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -59,6 +60,7 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
+              placeholder='admin123'
               value={form.password}
               onChange={handleInputChange}
               className="w-full px-3 py-2 text-white bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
