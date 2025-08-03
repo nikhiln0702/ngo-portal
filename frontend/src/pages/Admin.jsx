@@ -13,7 +13,7 @@ export default function Admin() {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        navigate('/admin/login');
+        navigate('/admin');
         return;
       }
 
@@ -25,7 +25,7 @@ export default function Admin() {
       } catch (err) {
         setError('Failed to fetch users. You may not be authorized.');
         if (err.response && err.response.status === 401) {
-            navigate('/admin/login');
+            navigate('/admin');
         }
       } finally {
         setLoading(false);
@@ -35,7 +35,7 @@ export default function Admin() {
   }, [navigate]);
    const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/admin/login');
+    navigate('/admin');
   };
 
   if (loading) {

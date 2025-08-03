@@ -71,14 +71,25 @@ export default function Login() {
             <p className="text-sm text-center text-red-400">{error}</p>
           )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          {/* Button Container */}
+          <div className="space-y-4 pt-4">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+
+            {/* Back to Home Button */}
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="w-full px-4 py-2 font-semibold text-gray-300 bg-transparent border border-gray-600 rounded-md hover:bg-gray-700 hover:text-white"
+            >
+              Back to Home
+            </button>
+          </div>
         </form>
       </div>
     </div>

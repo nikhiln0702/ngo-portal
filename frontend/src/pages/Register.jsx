@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', role: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'intern' });
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-  
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -82,19 +84,29 @@ export default function Register() {
               className="w-full px-4 py-2 text-white bg-gray-700 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500"
               required
             >
-              <option value="">-- Please choose a role --</option>
               <option value="intern">Intern</option>
               <option value="volunteer">Volunteer</option>
             </select>
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
-          >
-            Register
-          </button>
+          <div className="space-y-4 pt-4">
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
+            >
+              Register
+            </button>
+            
+            {/* 3. Add the Back Button */}
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="w-full px-4 py-2 font-semibold text-gray-300 bg-transparent border border-gray-600 rounded-md hover:bg-gray-700 hover:text-white"
+            >
+              Back to Home
+            </button>
+            </div>
         </form>
       </div>
     </div>
