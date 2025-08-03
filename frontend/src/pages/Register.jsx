@@ -20,12 +20,14 @@ const SuccessModal = ({ message, onClose }) => (
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', role: 'intern' });
+  const [loading, setLoading] = useState(false);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axios.post(`${BASE_URL}/register`, form);
       toast.success('Registration successful!');
@@ -34,6 +36,8 @@ export default function Register() {
     } catch (error) {
       toast.error('Registration failed. Please try again.');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleModalClose = () => {
@@ -120,12 +124,13 @@ export default function Register() {
           <div className="space-y-4 pt-4">
             <button
               type="submit"
+              disabled={loading}
               className="w-full px-4 py-2 text-lg font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
             >
-              Register
+              {loading ? 'Registering...' : 'Register'}
             </button>
             
-            {/* 3. Add the Back Button */}
+            {/* Add the Back Button */}
             <button
               type="button"
               onClick={() => navigate('/')}
